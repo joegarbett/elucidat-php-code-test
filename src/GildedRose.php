@@ -25,8 +25,15 @@ class GildedRose
     {
         foreach ($this->items as $item) {
             $converted = Str::studly($item->name);
+            $converted = str_replace([","], "\\", $converted);
             $namespaced = "\App\Items\\" . $converted;
-            $item = (new $namespaced($item))->apply();
+
+            try {
+                $item = (new $namespaced($item))->apply();
+            } catch (\Exception $e) {
+                #die('New product - ' . $converted);
+                // @todo discuss what to do for new Items?
+            }
         }
     }
 }
