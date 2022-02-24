@@ -20,6 +20,22 @@ abstract class Product
         $this->item = $item;
     }
 
+    /**
+     * @return void
+     */
+    protected function subtractSellIn(): void
+    {
+        --$this->item->sellIn;
+    }
+
+    /**
+     * @return void
+     */
+    protected function quantityLimits(): void
+    {
+        $this->item->quality = min($this->item->quality, 50);
+        $this->item->quality = max($this->item->quality, 0);
+    }
 
     /**
      * @return Item
